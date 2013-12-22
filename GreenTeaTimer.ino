@@ -13,14 +13,14 @@ Green tea timer, arduino code
 Adafruit_7segment matrix = Adafruit_7segment();
 const int buttonpin_50 = 2;     // the number of the pushbutton pin
 const int buttonpin_20 = 9;     // the number of the pushbutton pin
-const int ledPin =  13;      // the number of the LED pin
+const int ledPin =  13;         // the number of the LED pin
 int button_state_50 = 0;         // variable for reading the pushbutton status
 int button_state_20 = 0;         // variable for reading the pushbutton status
 
 void setup() {
 #ifndef __AVR_ATtiny85__
   Serial.begin(9600);
-  Serial.println("7 Segment Backpack Test");
+  Serial.println("Running green tea timer");
 #endif
    matrix.begin(0x70);
    // initialize the LED pin as an output:
