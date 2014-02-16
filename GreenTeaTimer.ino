@@ -8,13 +8,15 @@ Green tea timer, arduino code
 //#include <TinyWireM.h> // Enable this line if using Adafruit Trinket, Gemma, etc.
 #include "Adafruit_LEDBackpack.h"
 #include "Adafruit_GFX.h"
+#include "pitches.h"
 
 Adafruit_7segment matrix = Adafruit_7segment();
-const int buttonpin_50 = 2;     // the number of the pushbutton pin
-const int buttonpin_20 = 9;     // the number of the pushbutton pin
-const int ledPin =  13;         // the number of the LED pin
+const int buttonpin_50 = 2;      // the number of the pushbutton pin
+const int buttonpin_20 = 9;      // the number of the pushbutton pin
+const int ledPin =  13;          // the number of the LED pin
 int button_state_50 = 0;         // variable for reading the pushbutton status
 int button_state_20 = 0;         // variable for reading the pushbutton status
+const int buzzerPin = 12;        // 
 
 void setup() {
 #ifndef __AVR_ATtiny85__
@@ -39,11 +41,11 @@ void loop() {
 
    if (button_state_50 == HIGH) {
       digitalWrite(ledPin, HIGH);  
-      countdown(50, matrix);
+      countdown(50, matrix, buzzerPin);
    } 
    else if (button_state_20 == HIGH) {
       digitalWrite(ledPin, HIGH);  
-      countdown(20, matrix);
+      countdown(1, matrix, buzzerPin);
    } 
    else {
       digitalWrite(ledPin, LOW); 
@@ -52,14 +54,17 @@ void loop() {
 }
 
 
-void countdown(int secs, Adafruit_7segment matrix) {
+void countdown(int secs, Adafruit_7segment matrix, int buzzerPin) {
       for (int counter = secs; counter > -1; counter-- ) {
          matrix.writeDigitNum(3, counter / 10);
          matrix.writeDigitNum(4, counter % 10);
          matrix.writeDisplay();
          delay(1000);
       }
-      delay(3000);
+      delay(2000);
+      // Alert user that countdown has finished
+      tone(buzzerPin, NOTE_B3, 1000);
+      noTone(NOTE_B3);
       matrix.clear();
       matrix.writeDisplay();
 }
