@@ -45,7 +45,7 @@ void loop() {
    } 
    else if (button_state_20 == HIGH) {
       digitalWrite(ledPin, HIGH);  
-      countdown(1, matrix, buzzerPin);
+      countdown(20, matrix, buzzerPin);
    } 
    else {
       digitalWrite(ledPin, LOW); 
